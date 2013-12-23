@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    "task", :media => "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <center>
+    	<table width="100%" cellspacing="0" cellpadding="0">
+    		<tr>
+    			<td>
+    				<div id="header_top_space"></div>
+    			</td>
+			</tr>   
+			<tr> 			
+    			<td>
+    				<div id="header_logo_space">
+    					<table width="100%">
+    						<tr>
+    							<td width="30%" rowspan="2">
+    								<div style="padding: 15px;">
+    									<%= image_tag("logo.png", :width => "200", :height => "55.375") %>
+    								</div>
+    							</td>
+    						</tr>
+    						<tr>
+    							<td width="70%">
+    								<div style="text-align: center;" valign="center">
+    									megamarketing	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    									exposure 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    									engagement	<br/>
+    									<hr style="width:500px;" />
+    								</div>
+   								</td>
+    						</tr>
+    					</table>
+    				</div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<div id="main_task_body">
+    					<%= yield %>
+    				</div>
+    			</td>
+    		</tr>
+    	</table>      
+  </center>
+  <script type="text/javascript">
+    <% if flash[:error] or flash[:notice] %>
+      alert('<%= flash[:error] || flash[:notice] %>');
+    <% end %>
+  </script>
+  <% if Rails.env.production? %>
+    <!-- Insert Google Analytics here -->
+  <% end %>
+  
+</body>
+</html>

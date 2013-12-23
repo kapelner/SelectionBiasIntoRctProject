@@ -1,0 +1,36 @@
+<h2>Comments for Completed Surveys</h2>
+
+<%= render :partial => 'treatment_links_and_all_hits', :locals => {:runs => @runs, :show_listings_and_email => false} %>
+
+<div style="margin:5px; padding:5px; border: 1px solid black;">
+  <h3>All HITs (<%= @runs.length %>)</h3>
+  <table width="100%" align="center" BORDER=1 RULES=ALL FRAME=VOID>
+    <tr>
+      <th align="center">ID</th>
+      <th align="center">Ver #</th>
+      <th align="center">Word Count (time)</th>
+      <th align="center">Comments</th>
+      <th align="center">Pay / Reject</th>
+      <th align="center">Email</th>
+    </tr>
+    <% @runs.reverse.each do |run| %>
+      <tr <% if run.paid? or run.rejected? %>style="background-color:rgb(200,200,200);"<% end %>>
+        <td align="center" valign="top"><%= link_to run.id, {:action => :investigate_run, :id => run.id}, {:target => '_blank'} %></td>
+        <td align="center" valign="top"><%= run.version %></td>
+        <td align="center" valign="top">
+          <%= run.comments_word_count %>
+        </td>
+        <td align="center" valign="top">
+          <%= run.turker_comments %>
+        </td>
+        <td align="center" valign="top" style="font-size:6px;">
+          <%= render :partial => 'pay_and_or_bonus_or_reject', :locals => {:run => run, :page => 'comments_page'} %>
+        </td>
+        <td align="center" valign="top" style="font-size:8px;">
+          <input type="checkbox" worker_id="<%= run.mturk_worker_id %>" class="worker_send_checkbox" />
+        </td>
+      </tr>
+    <% end %>
+  </table> 
+</div>
+<%= render :partial => 'email_workers' %>

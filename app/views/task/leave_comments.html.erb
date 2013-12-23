@@ -1,0 +1,25 @@
+<%= javascript_include_tag "task_with_prototype" %>
+
+<div id="trans_comments">
+  Please give us feedback and comments. Let us know if you like this HIT or not like this
+  HIT and why. We are known to give bonuses if
+  you point out a bug or if you tell us something that we can improve upon.<br />
+  <br />
+ 
+  <div style="text-align: center;">
+	  <%= form_for :task do |f| %>
+		  <input type="hidden" name="id" value="<%= @t.id %>" />
+		  <%= f.text_area(:turker_comments, :size => "60x3") %><br />
+		  <div id="submit_tag_wrap">
+		  	<%= submit_tag " Submit Comments to Us for Reviewing ", 
+		  			:onclick => "$('#submit_tag_wrap')[0].style.display = 'none';" %>
+		  </div>
+	  <% end %>
+  </div>
+</div>
+<div style="height:150px;"></div>
+<script type="text/javascript">
+	Event.observe(window, 'load', function() {
+	  $('task_turker_comments').focus();
+	});
+</script>

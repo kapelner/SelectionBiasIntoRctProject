@@ -1,0 +1,12 @@
+<div id="debrief">
+  	Thank you for your taking our survey and leaving feedback.<br />
+  	<br />
+  	Press the button below to submit to MTurk:<br /><br />  
+	<form method="post" action="https://<%= RTurkWrapper::MTURK_DEV ? 'workersandbox' : 'www' %>.mturk.com/mturk/externalSubmit" id="mturk_form">
+	  <input type="hidden" name="assignmentId" value="<%= @t.mturk_assignment_id %>" />
+	  <input type="hidden" name="data" value="<%= @t.id %>" />
+	  <input type="submit" value=" Submit my HIT to MTurk for our Review "/>
+	</form>
+	<div style="height:150px;"></div>  
+</div>
+

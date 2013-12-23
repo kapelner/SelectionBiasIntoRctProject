@@ -1,0 +1,401 @@
+<h2>Summary Statistics and Tests (n = <%= @ntot %>)</h2>
+
+<table border="1" width="65%" align="center" style="text-align: center;">
+	<tr>
+		<th>Arm</th>
+		<th>Study</th>
+		<th>T/C</th>
+		<th>n<sub>ijk</sub></th>
+		<th>ybar</th>
+		<th>s<sub>y</sub></th>
+		<th>SATE</th>
+		<th>s<sub>diff</sub></th>
+		<th>p<sub>val</sub></th>
+		<th>SATE<sub>diff</sub></th>
+		<th>s<sub>diff<sub>diff</sub></sub></th>
+		<th>p<sub>val<sub>diff</sub></sub></th>		
+	</tr>
+	<tr>
+		<td rowspan="6" valign="center">R (<%= @n_r %>)</td>
+		<td rowspan="2" valign="center">beer</td>
+		<td>T</td>
+		<td><%= @n_tsr_beer_trt %></td>
+		<td><%= @avg_tsr_beer_trt ? @avg_tsr_beer_trt.round(2) : nil %></td>
+		<td><%= @sd_tsr_beer_trt ? @sd_tsr_beer_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tsr_beer.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tsr_beer_sd.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @pval_tsr_beer ? @pval_tsr_beer.last.round(3) : nil %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_beer.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_beer_sd.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @pval_ate_diff_beer.round(3) %></td> 		
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tsr_beer_con %></td>
+		<td><%= @avg_tsr_beer_con ? @avg_tsr_beer_con.round(2) : nil %></td>
+		<td><%= @sd_tsr_beer_con ? @sd_tsr_beer_con.round(2) : nil %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">religious</td>
+		<td>T</td>
+		<td><%= @n_tsr_religious_trt %></td>
+		<td><%= @avg_tsr_religious_trt ? @avg_tsr_religious_trt.round(2) : nil %></td>
+		<td><%= @sd_tsr_religious_trt ? @sd_tsr_religious_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tsr_religious.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tsr_religious_sd.round(3) %></td> 		
+		<td rowspan="2" valign="center"><%= @pval_tsr_religious ? @pval_tsr_religious.last.round(3) : nil %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_religious.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_religious_sd.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @pval_ate_diff_religious.round(3) %></td> 		
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tsr_religious_con %></td>
+		<td><%= @avg_tsr_religious_con ? @avg_tsr_religious_con.round(2) : nil %></td>
+		<td><%= @sd_tsr_religious_con ? @sd_tsr_religious_con.round(2) : nil %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">theater</td>
+		<td>T</td>
+		<td><%= @n_tsr_theater_trt %></td>
+		<td><%= @avg_tsr_theater_trt ? @avg_tsr_theater_trt.round(2) : nil %></td>
+		<td><%= @sd_tsr_theater_trt ? @sd_tsr_theater_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tsr_theater.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tsr_theater_sd.round(3) %></td> 		
+		<td rowspan="2" valign="center"><%= @pval_tsr_theater ? @pval_tsr_theater.last.round(3) : nil %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_theater.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_diff_theater_sd.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @pval_ate_diff_theater.round(3) %></td> 		
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tsr_theater_con %></td>
+		<td><%= @avg_tsr_theater_con ? @avg_tsr_theater_con.round(2) : nil %></td>
+		<td><%= @sd_tsr_theater_con ? @sd_tsr_theater_con.round(2) : nil %></td>
+	</tr>
+	<tr>
+		<td rowspan="6" valign="center">S (<%= @n_s %>)</td>
+		<td rowspan="2" valign="center">beer (<%= @n_tss_beer_trt + @n_tss_beer_con %>)</td>
+		<td>T</td>
+		<td><%= @n_tss_beer_trt %></td>
+		<td><%= @avg_tss_beer_trt ? @avg_tss_beer_trt.round(2) : nil %></td>
+		<td><%= @sd_tss_beer_trt ? @sd_tss_beer_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tss_beer.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tss_beer_sd.round(3) %></td> 		
+		<td rowspan="2" valign="center"><%= @pval_tss_beer ? @pval_tss_beer.last.round(3) : nil %></td> 
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tss_beer_con %></td>
+		<td><%= @avg_tss_beer_con ? @avg_tss_beer_con.round(2) : nil %></td>
+		<td><%= @sd_tss_beer_con ? @sd_tss_beer_con.round(2) : nil %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">religious (<%= @n_tss_religious_trt + @n_tss_religious_con %>)</td>
+		<td>T</td>
+		<td><%= @n_tss_religious_trt %></td>
+		<td><%= @avg_tss_religious_trt ? @avg_tss_religious_trt.round(2) : nil %></td>
+		<td><%= @sd_tss_religious_trt ? @sd_tss_religious_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tss_religious.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tss_religious_sd.round(3) %></td> 		
+		<td rowspan="2" valign="center"><%= @pval_tss_religious ? @pval_tss_religious.last.round(3) : nil %></td> 
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tss_religious_con %></td>
+		<td><%= @avg_tss_religious_con ? @avg_tss_religious_con.round(2) : nil %></td>
+		<td><%= @sd_tss_religious_con ? @sd_tss_religious_con.round(2) : nil %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">theater (<%= @n_tss_theater_trt + @n_tss_theater_con %>)</td>
+		<td>T</td>
+		<td><%= @n_tss_theater_trt %></td>
+		<td><%= @avg_tss_theater_trt ? @avg_tss_theater_trt.round(2) : nil %></td>
+		<td><%= @sd_tss_theater_trt ? @sd_tss_theater_trt.round(2) : nil %></td>
+		<td rowspan="2" valign="center"><%= @ate_tss_theater.round(3) %></td> 
+		<td rowspan="2" valign="center"><%= @ate_tss_theater_sd.round(3)  %></td> 		
+		<td rowspan="2" valign="center"><%= @pval_tss_theater ? @pval_tss_theater.last.round(3) : nil %></td> 
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @n_tss_theater_con %></td>
+		<td><%= @avg_tss_theater_con ? @avg_tss_theater_con.round(2) : nil %></td>
+		<td><%= @sd_tss_theater_con ? @sd_tss_theater_con.round(2) : nil %></td>
+	</tr>				
+</table>
+
+<h2>Raw Data</h2>
+
+<table border="1" width="90%" align="center" style="text-align: center;">
+	<tr>
+		<th>Arm</th>
+		<th>Study</th>
+		<th>Trt</th>
+		<th>data</th>
+	</tr>
+	<tr>
+		<td rowspan="6" valign="center">R</td>
+		<td rowspan="2" valign="center">beer</td>
+		<td>T</td>
+		<td><%= @y_tsr_beer_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tsr_beer_con.join(', ') %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">religious</td>
+		<td>T</td>
+		<td><%= @y_tsr_religious_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tsr_religious_con.join(', ') %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">theater</td>
+		<td>T</td>
+		<td><%= @y_tsr_theater_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tsr_theater_con.join(', ') %></td>
+	</tr>
+	<tr>
+		<td rowspan="6" valign="center">S</td>
+		<td rowspan="2" valign="center">beer</td>
+		<td>T</td>
+		<td><%= @y_tss_beer_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tss_beer_con.join(', ') %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">religious</td>
+		<td>T</td>
+		<td><%= @y_tss_religious_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tss_religious_con.join(', ') %></td>
+	</tr>
+	<tr>
+		<td rowspan="2" valign="center">theater</td>
+		<td>T</td>
+		<td><%= @y_tss_theater_trt.join(', ') %></td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td><%= @y_tss_theater_con.join(', ') %></td>
+	</tr>				
+</table>
+
+<h2>Demographic Information</h2>
+
+<table border="1" width="80%" align="center" style="text-align: center;">
+	<tr>
+		<th>Var</th>
+		<th>Key</th>
+		<th>R</th>
+		<th>S (beer)</th>
+		<th>S (religion)</th>
+		<th>S (theater)</th>
+		<th>sd R avg</th>
+		<th>sd S (beer) avg</th>		
+		<th>sd S (religion) avg</th>
+		<th>sd S (theater) avg</th>
+	</tr>
+	<tr>
+		<td>Age</td>
+		<td></td>
+		<td><%= samp_avg(@age_r).round(2) %></td>		
+		<td><%= samp_avg(@age_s_beer).round(2) %></td>
+		<td><%= samp_avg(@age_s_religious).round(2) %></td>
+		<td><%= samp_avg(@age_s_theater).round(2) %></td>
+		<td><%= (samp_sd(@age_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@age_s_beer).round(2) %></td>		
+		<td><%= samp_sd(@age_s_religious).round(2) %></td>		
+		<td><%= samp_sd(@age_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Male?</td>
+		<td></td>
+		<td><%= samp_avg(@male_r).round(2) %></td>		
+		<td><%= samp_avg(@male_s_beer).round(2) %></td>
+		<td><%= samp_avg(@male_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@male_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@male_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@male_s_beer).round(2) %></td>
+		<td><%= samp_sd(@male_s_religious).round(2) %></td>
+		<td><%= samp_sd(@male_s_theater).round(2) %></td>
+	</tr>	
+	<tr>
+		<td>Urban Residence?</td>
+		<td></td>
+		<td><%= samp_avg(@urban_r).round(2) %></td>		
+		<td><%= samp_avg(@urban_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@urban_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@urban_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@urban_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@urban_s_beer).round(2) %></td>
+		<td><%= samp_sd(@urban_s_religious).round(2) %></td>
+		<td><%= samp_sd(@urban_s_theater).round(2) %></td>
+	</tr>	
+	<tr>
+		<td># Children</td>
+		<td></td>
+		<td><%= samp_avg(@num_children_r).round(2) %></td>		
+		<td><%= samp_avg(@num_children_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@num_children_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@num_children_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@num_children_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@num_children_s_beer).round(2) %></td>
+		<td><%= samp_sd(@num_children_s_religious).round(2) %></td>
+		<td><%= samp_sd(@num_children_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Income (in $1,000's)</td>
+		<td></td>
+		<td><%= samp_avg(@income_r).round(2) %></td>		
+		<td><%= samp_avg(@income_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@income_s_religious).round(2) %></td>
+		<td><%= samp_avg(@income_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@income_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@income_s_beer).round(2) %></td>
+		<td><%= samp_sd(@income_s_religious).round(2) %></td>
+		<td><%= samp_sd(@income_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Belief in Divine?</td>
+		<td></td>
+		<td><%= samp_avg(@belief_in_divine_r).round(2) %></td>
+		<td><%= samp_avg(@belief_in_divine_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@belief_in_divine_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@belief_in_divine_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@belief_in_divine_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@belief_in_divine_s_beer).round(2) %></td>
+		<td><%= samp_sd(@belief_in_divine_s_religious).round(2) %></td>
+		<td><%= samp_sd(@belief_in_divine_s_theater).round(2) %></td>
+	</tr>	
+	<tr>
+		<td>Born in the USA?</td>
+		<td></td>
+		<td><%= samp_avg(@born_here_r).round(2) %></td>
+		<td><%= samp_avg(@born_here_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@born_here_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@born_here_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@born_here_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@born_here_s_beer).round(2) %></td>
+		<td><%= samp_sd(@born_here_s_religious).round(2) %></td>
+		<td><%= samp_sd(@born_here_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Like participating in studies?</td>
+		<td></td>
+		<td><%= samp_avg(@participate_in_study_r).round(2) %></td>
+		<td><%= samp_avg(@participate_in_study_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@participate_in_study_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@participate_in_study_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@participate_in_study_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@participate_in_study_s_beer).round(2) %></td>
+		<td><%= samp_sd(@participate_in_study_s_religious).round(2) %></td>
+		<td><%= samp_sd(@participate_in_study_s_theater).round(2) %></td>
+	</tr>	
+	<tr>
+		<td>English First Language?</td>
+		<td></td>
+		<td><%= samp_avg(@english_first_language_r).round(2) %></td>
+		<td><%= samp_avg(@english_first_language_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@english_first_language_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@english_first_language_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@english_first_language_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@english_first_language_s_beer).round(2) %></td>
+		<td><%= samp_sd(@english_first_language_s_religious).round(2) %></td>
+		<td><%= samp_sd(@english_first_language_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Prefer life filled with puzzles to solve?</td>
+		<td></td>
+		<td><%= samp_avg(@nfc_1_r).round(2) %></td>
+		<td><%= samp_avg(@nfc_1_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@nfc_1_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@nfc_1_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@nfc_1_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@nfc_1_s_beer).round(2) %></td>
+		<td><%= samp_sd(@nfc_1_s_religious).round(2) %></td>
+		<td><%= samp_sd(@nfc_1_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Enough to get the job done?</td>
+		<td></td>
+		<td><%= samp_avg(@nfc_2_r).round(2) %></td>
+		<td><%= samp_avg(@nfc_2_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@nfc_2_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@nfc_2_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@nfc_2_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@nfc_2_s_beer).round(2) %></td>
+		<td><%= samp_sd(@nfc_2_s_religious).round(2) %></td>
+		<td><%= samp_sd(@nfc_2_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Inventive and Curious vs. Consistent and Cautious?</td>
+		<td></td>
+		<td><%= samp_avg(@big_5_1_r).round(2) %></td>
+		<td><%= samp_avg(@big_5_1_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@big_5_1_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@big_5_1_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@big_5_1_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@big_5_1_s_beer).round(2) %></td>
+		<td><%= samp_sd(@big_5_1_s_religious).round(2) %></td>
+		<td><%= samp_sd(@big_5_1_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Efficient and organized vs. Easy-going and more careless?</td>
+		<td></td>
+		<td><%= samp_avg(@big_5_2_r).round(2) %></td>
+		<td><%= samp_avg(@big_5_2_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@big_5_2_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@big_5_2_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@big_5_2_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@big_5_2_s_beer).round(2) %></td>
+		<td><%= samp_sd(@big_5_2_s_religious).round(2) %></td>
+		<td><%= samp_sd(@big_5_2_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Outgoing and energetic vs. Solitary and reserved?</td>
+		<td></td>
+		<td><%= samp_avg(@big_5_3_r).round(2) %></td>
+		<td><%= samp_avg(@big_5_3_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@big_5_3_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@big_5_3_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@big_5_3_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@big_5_3_s_beer).round(2) %></td>
+		<td><%= samp_sd(@big_5_3_s_religious).round(2) %></td>
+		<td><%= samp_sd(@big_5_3_s_theater).round(2) %></td>
+	</tr>
+	<tr>
+		<td>Friendly and compassionate vs. Logical and cold?</td>
+		<td></td>
+		<td><%= samp_avg(@big_5_4_r).round(2) %></td>
+		<td><%= samp_avg(@big_5_4_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@big_5_4_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@big_5_4_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@big_5_4_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@big_5_4_s_beer).round(2) %></td>
+		<td><%= samp_sd(@big_5_4_s_religious).round(2) %></td>
+		<td><%= samp_sd(@big_5_4_s_theater).round(2) %></td>
+	</tr>	
+	<tr>
+		<td>Sensitive and nervous vs. Secure and confident?</td>
+		<td></td>
+		<td><%= samp_avg(@big_5_5_r).round(2) %></td>
+		<td><%= samp_avg(@big_5_5_s_beer).round(2) %></td>		
+		<td><%= samp_avg(@big_5_5_s_religious).round(2) %></td>		
+		<td><%= samp_avg(@big_5_5_s_theater).round(2) %></td>		
+		<td><%= (samp_sd(@big_5_5_r) / Math.sqrt(@n_r)).round(2) %></td>
+		<td><%= samp_sd(@big_5_5_s_beer).round(2) %></td>
+		<td><%= samp_sd(@big_5_5_s_religious).round(2) %></td>
+		<td><%= samp_sd(@big_5_5_s_theater).round(2) %></td>
+	</tr>				
+</table>

@@ -1,0 +1,20 @@
+<div class="study_body">
+	Read the following paragraph and then answer a short question:<br />
+	<div class="paragraph_before_question">
+		<%= kapcha_tokenize(@t.treatment? ? @t.current_study.priming_dilemma_religious_prime : @t.current_study.priming_dilemma_non_religious_prime) %>
+	</div>
+	<%= kapcha_tokenize(@t.current_study.priming_dilemma_question) %>
+	<br />
+	<br />
+	<% srand(@t.id) #random order, but consistent for each person %>
+	<% if rand < 0.5 %>
+		<%= render 'priming_dilemma_no_dont_cooperate', :f => f %>
+		<%= render 'priming_dilemma_yes_cooperate', :f => f %>
+	<% else %>
+		<%= render 'priming_dilemma_yes_cooperate', :f => f %>
+		<%= render 'priming_dilemma_no_dont_cooperate', :f => f %>
+	<% end %>
+	<% srand %>
+	<br />
+	<%= submit_tag " Submit my answer ", :class => 'kapcha_control', :style => 'display:none;' %>	
+</div>

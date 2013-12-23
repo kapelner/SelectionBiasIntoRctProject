@@ -1,0 +1,9 @@
+<div class="study_body">
+	<%= kapcha_tokenize(@t.current_study.framing_beer_text) %>
+	<br />
+	<br />
+	<div style="text-align: center; display: none;" class="kapcha_control">
+		$<%= f.text_field :response, :maxlength => 5 %>
+		<%= submit_tag " Submit my answer " %>
+	</div>	
+</div>

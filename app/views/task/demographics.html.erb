@@ -1,0 +1,57 @@
+<%= javascript_include_tag "task_with_jquery" %>
+
+We first need to know a bit about you.<br /><br />
+
+<table>
+	<%= form_for :demographic, :html => {:onSubmit => "return demo_check();"} do |f| %>
+		<input type="hidden" name="id" value="<%= @t.id %>">
+		<input type="hidden" name="assignmentId" value="<%= params[:assignmentId] %>">
+		<input type="hidden" name="workerId" value="<%= params[:workerId] %>">
+		
+		<% srand(@t.id) #random order, but consistent for each person %>
+		<% DemographicTest::QnA.sort_by{rand}.each_with_index do |qna, i| %>
+			<% info = qna.last %>
+			<tr>
+				<td><%= i + 1 %>. <%= info[:question] %></td>
+			</tr>
+			<tr>
+				<td>
+					<div style="padding-left:20px; margin-bottom:10px;">
+						<% if info[:type] == :free_response %>						
+							<%= f.text_field qna.first, :maxlength => 8, :onkeyup => 'enable_button_if_done();' %>
+						<% elsif info[:type] == :categorical_random %>
+							<% info[:answer_choices].sort_by{rand}.each do |text, code| %>
+								<%= f.radio_button qna.first, code, :onclick => 'enable_button_if_done();' %>
+								<label for="demographic_<%= qna.first %>_<%= code.downcase %>" onmousedown="this.click();"><%= text %></label>
+								<br />
+							<% end %>
+						<% elsif info[:type] == :categorical_non_random %>
+							<% info[:answer_choices].each do |text, code| %>
+								<%= f.radio_button qna.first, code, :onclick => 'enable_button_if_done();' %>
+								<label for="demographic_<%= qna.first %>_<%= code.downcase %>" onmousedown="this.click();"><%= text %></label>
+								<br />
+							<% end %>
+						<% end %>
+					</div>
+				</td>	
+			</tr>	
+		<% end %>
+		<% srand #reset it back %>
+		<tr>
+			<td>
+				<%= submit_tag " Save my information ", :disabled => true, :id => "form_submit_button" %>
+		 		(will enable when all questions are answered)
+		 	</td>
+		</tr>		
+	<% end %>	
+</table>
+<script type="text/javascript">
+	function enable_button_if_done(){
+		if ($('input[type=radio]:checked').length + $('input[type=text][value!=""]').length == <%= DemographicTest::QnA.length %>){
+			$("#form_submit_button")[0].disabled = false;
+		}		
+	}
+	$(window).load(function () {
+    	enable_button_if_done();
+	});
+</script>

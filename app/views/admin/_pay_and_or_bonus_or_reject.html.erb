@@ -1,0 +1,72 @@
+<% if run.paid? %>
+  <span style="color:green;"><%= run.bonus.nil? ? "paid" : "bonus (#{run.bonus})" %></span>
+<% elsif run.rejected? %>
+  <span style="color:red;">rej</span>
+<% elsif run.completed? %>
+  <div id="pay_bonus_or_reject_<%= run.id %>">
+    <table>
+      <tr>
+        <td><%= link_to 'pay', 'javascript:void(0);', :onclick => "BonusPayment(#{run.id});" %></td>
+        <td>
+          <input
+            type="text"
+            maxlength="4"
+            id="bonus_value_<%= run.id %>"
+            style="width:30px;"
+            value="<%= StatTurkMTurk::DefaultBonus %>"
+            onclick="this.value = '';"
+            onkeydown="if (event.keyCode == 13){BonusPayment(<%= run.id %>);}" />
+        </td>
+        <td><%= link_to 'rej', 'javascript:void(0);', :onclick => "RejectHIT(#{run.id});", :confirm => "Are you sure you want to reject this HIT?" %></td>
+      </tr>
+    </table>
+  </div>
+  <% unless @js_for_pay_bonus_or_reject %>
+    <% @js_for_pay_bonus_or_reject = true %>
+    <script type="text/javascript">
+      function BonusPayment(id){
+        
+        var bonus = $('bonus_value_' + id).value;
+        //make sure user wants to give a bonus
+        //if (parseFloat(bonus) > 0){
+        //  if (!confirm("Are you sure you want to give a $" + bonus + " bonus?")){
+        //    return;
+        //  }
+        //}
+        $('pay_bonus_or_reject_' + id).update('<img src="/assets/spinner.gif" border="0" width="10" height="10" />');
+        var r = new Ajax.Request(
+          '/admin/pay',
+          {
+            method: 'post',
+            parameters: 'id=' + id,
+            onComplete: function(response){
+              $('pay_bonus_or_reject_' + id).update(response.responseText);
+            }
+          }
+        );
+      }
+      
+      function RejectHIT(id){
+        if (!confirm("Are you sure you want to reject this HIT?")){
+          return;
+        }
+        $('pay_bonus_or_reject_' + id).update('<img src="/assets/spinner.gif" border="0" width="10" height="10" />');
+        var r = new Ajax.Request(
+          '/admin/reject',
+          {
+            method: 'post',
+            parameters: 'id=' + id,
+            onComplete: function(response){
+              if (response.responseText.length > 200){
+                $('pay_bonus_or_reject_' + id).update("<span style=\"color:red;\">ERROR!</span>");
+              }
+              else {
+                $('pay_bonus_or_reject_' + id).update(response.responseText);
+              }
+            }
+          }
+        );
+      }
+    </script>
+  <% end %>
+<% end %>

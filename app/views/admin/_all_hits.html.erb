@@ -1,0 +1,65 @@
+<div style="margin:5px; padding:5px; border: 1px solid black;">
+  <h3>All HITs (<%= runs.select{|r| r.completed?}.length %> completed)</h3>
+  <table width="100%" cellspacing="0">
+    <tr>
+      <th align="center">ID</th>
+      <th align="center">Batch</th>
+      <th align="center">arm</th>
+      <th align="center">T/C</th>
+      <th align="center">1st<br />study</th>
+      <th align="center">Local<br />Do</th>
+      <th align="center">MTurk<br />Do</th>
+      <th align="center">Done?</th>
+      <th align="center">1st<br />response</th>
+      <th align="center">Pay</th>
+      <th align="center">Time <br />Spent</th>
+      <th align="center">Email</th>
+      <th align="center">x</th>
+    </tr>
+    <% runs.reverse.each do |run| %>
+      <tr style="<% if run.expired? %>color:rgb(100,100,100);<% elsif run.expired_and_uncompleted? %>color:rgb(200,200,200);<% end %>">
+        <td align="center" valign="center"><%= run.id %></td>
+        <td align="center" valign="center">
+          <div style="font-size:22px;"><%= run.batch %></div>
+          <span style="font-size:10px;"><%= run.created_at.strftime('%H:%M %b %d') %></span>
+        </td>        
+        <td align="center" valign="center" style="font-size:10px;"><%= run.exp_arm %></td>
+        <td align="center" valign="center" style="font-size:10px;"><%= run.treatment ? "T" : "C" %></td>
+        <td align="center" valign="center" style="font-size:10px;"><%= run.study_list ? run.study_list.first : nil %></td>
+        <td align="center" valign="center"><%= link_to 'do', {:controller => PersonalInformation::ExperimentalController, :id => run.id, :workerId => "test#{Time.now.to_i}", :assignmentId => "test#{Time.now.to_i}"}, {:target => '_blank'} %></td>
+        <td align="center" valign="center" style="font-size:6px;">
+          <%= link_to 'link', "https://#{RTurkWrapper::MTURK_DEV ? 'workersandbox' : 'www'}.mturk.com/mturk/preview?groupId=#{run.mturk_group_id}&hitId=#{run.mturk_hit_id}&externalHit=true&canAccept=true", :target => '_blank', :style => '' %>
+          <% if run.mturk_worker_id %><br /><%= run.mturk_worker_id %><% end %>
+          <% if run.mturk_assignment_id %><br /><%= run.mturk_assignment_id %><% end %>
+        </td>
+        <td align="center" valign="center">
+          <%= 'Y' if run.completed? %>
+        </td>
+        <td align="center" valign="center"><%= run.first_response %></td>
+        <td align="center" valign="center" style="font-size:8px;"><%= render :partial => 'pay_and_or_bonus_or_reject', :locals => {:run => run, :page => 'index'} if run.completed? %></td>
+        <td align="center" valign="center">
+        	<% if run.started? %>
+        		<%= run.time_spent.nil? ? "??" : ((run.time_spent / 60.to_f).round(1)) %>min
+        	<% end %>
+        </td>
+        <td align="center" valign="center">
+          <% if run.mturk_worker_id %>
+            <input type="checkbox" worker_id="<%= run.mturk_worker_id %>" class="worker_send_checkbox" />
+          <% else %>
+            <input type="checkbox" disabled="true" />
+          <% end %>
+        </td>
+        <td><%= link_to 'x', {:action => :delete_run, :id => run.id}, :confirm => "Are you sure you want to delete hit ##{run.id}?" %></td>
+      </tr> 
+      <% if run.turker_comments.present? %>
+        <tr>
+          <td align="center" valign="center" colspan="12">
+            <div style="text-align:left;">
+              <strong>Comments:</strong> <%= run.turker_comments %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>    
+  </table>
+</div>

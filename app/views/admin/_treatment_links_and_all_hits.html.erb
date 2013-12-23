@@ -1,0 +1,15 @@
+<% if runs.empty? %>
+  (No HITs)
+<% else %>
+  <% if PersonalInformation::ExperimentalModel::RandomizedTreatments.length > 1 %>
+    Comments by treatment: <%= link_to 'all', :treatment => nil %>
+    <% PersonalInformation::ExperimentalModel::RandomizedTreatments.each do |treatment| %>
+      <%= link_to PersonalInformation::ExperimentalModel::TreatmentNames[treatment], :treatment => treatment %>
+    <% end %>
+  <% end %>
+  <% if show_listings_and_email %>
+    <%= render :partial => 'all_hits', :locals => {:runs => runs} %>
+    <%= render :partial => 'email_workers' %>
+  <% end %>
+<% end %>
+<br />

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  //assume browser is focused right now
+  var browser_focused = true;
+
+  function onBlur() {
+    browser_focused = false;
+    RecordUnfocus();
+      //disappear all text
+      try {
+        if (kapcha.rewind_upon_navigate_away){
+          kapcha.rewind();
+        }
+      }
+      catch (e){}
+  };
+  function onFocus(){
+    browser_focused = true;
+    //RecordFocusOrUnfocus('focused');
+      //start fading in all text
+      try {
+        if (kapcha.rewind_upon_navigate_away){
+          kapcha.start_fading_in();
+        }
+      }
+      catch (e){}
+  };
+  if (/*@cc_on!@*/false) { // check for Internet Explorer
+    document.onfocusin = onFocus;
+    document.onfocusout = onBlur;
+  }
+  else {
+    window.onfocus = onFocus;
+    window.onblur = onBlur;
+  }
+
+  //do nothing here for now
+  function RecordUnfocus(){
+    var r = new Ajax.Request(
+      '/task/record_nav_away',
+      {
+        method: 'post',
+        parameters: 'study_id=' + <%= s.id %>
+      }
+    );
+  }
+</script>

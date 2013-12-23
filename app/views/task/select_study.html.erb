@@ -1,0 +1,29 @@
+<%= javascript_include_tag "task_with_jquery" %>
+
+Please pick the type of marketing question below that most interests you:<br />
+<br />
+<%= form_tag do |f| %>
+	<input type="hidden" name="id" value="<%= @t.id %>">
+	<input type="hidden" name="study_name" id="study_name">
+	<table width="90%">
+		<% srand(@t.id) #random order, but consistent for each person %>
+		<% Study::StudyList.sort_by{rand}.each do |study_name| %>
+			<tr>
+				<td>
+					<table width="100%" onclick="select_study('<%= study_name %>');" class="select_table">
+						<tr>
+							<%= render "#{study_name}_select", :f => f %>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<% end %>
+		<% srand #reset it back %>
+	</table>
+<% end %>
+<script type="text/javascript">
+	function select_study(study_name){
+		$('#study_name')[0].value = study_name;
+		$('form')[0].submit();
+	}
+</script>

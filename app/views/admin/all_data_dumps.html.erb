@@ -1,0 +1,7 @@
+<h1>All Data Dumps</h1>
+
+<% @items.each do |item| %>
+  <%= link_to "Data dump for #{item.video_streamhoster_name}", 
+    {:action => :dump_for_item, :id => item.id},
+    {:target => '_blank'} %><br />
+<% end %>

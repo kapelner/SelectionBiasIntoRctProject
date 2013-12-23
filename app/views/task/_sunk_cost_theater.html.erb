@@ -1,0 +1,21 @@
+<div class="study_body">
+	<%= kapcha_tokenize(@t.current_study.sunk_cost_theater_text) %>
+	<br />
+	<br />
+	<div style="text-align:center;">
+		<table style="text-align: center;">
+			<tr>
+				<td width="20%"></td>
+				<% 0.upto(9) do |level| %>
+					<td>
+						<%= f.radio_button :response, level, :class => 'kapcha_control', :style => 'display:none;' %>
+						<label for="study_response_<%= level %>" onmousedown="this.click();" class="kapcha_control" style="display: none;"><%= level %></label>
+					</td>
+				<% end %>
+				<td width="20%"></td>
+			</tr>
+		</table>
+		<br />
+		<%= submit_tag " Submit my answer ", :class => 'kapcha_control', :style => 'display:none;' %>
+	</div>
+</div>

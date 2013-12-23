@@ -1,0 +1,23 @@
+<div style="margin:5px; padding:5px; border: 1px solid black;">
+  <h3>Create experimental HIT sets</h3>
+  Current wage schedule: <%= StatTurkMTurk::EXPERIMENTAL_WAGE %><br />
+  Current country: <%= StatTurkMTurk::EXPERIMENTAL_COUNTRY %><br />
+  <br />
+  <div>
+    We are currently in
+    <%= RTurkWrapper::MTURK_DEV ? "sandbox mode. Have no fear!" : "production mode. Hits will be created on the live site! Make sure the MTurk account is sufficiently funded!!!" %>
+  </div>
+  <br />
+  <%= form_tag :action => :create_hits do |f| %>
+    <table>
+      <tr>
+        <th colspan="2">Number of HITs</th>
+      </tr>
+      <tr>
+        <td align="center"><input type="text" name="n" value="5" id="num_hits_to_create" style="width:25px;" /></td>
+      </tr>
+    </table>
+    <input type="submit" value=" Create HIT(s)! " />
+  <% end %>
+</div>
+<br />

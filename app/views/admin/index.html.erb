@@ -1,0 +1,5 @@
+<%= render 'admin_links' %>
+<% if Rails.env.development? %>
+	<%= render 'create_hits' %>
+<% end %>
+<%= render 'treatment_links_and_all_hits', :runs => @runs, :show_listings_and_email => true %>

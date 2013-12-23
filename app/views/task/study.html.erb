@@ -1,0 +1,14 @@
+<%= javascript_include_tag "task_with_prototype" %>
+
+<%= render 'active_inactive_browser', :s => @t.current_study %>
+
+<%= form_for :study do |f| %>
+	<input type="hidden" name="id" value="<%= @t.id %>">
+	<%= render @t.current_study_name, :f => f %>
+<% end %>
+
+<% if Study::UseKapcha %>
+	<script type="text/javascript">
+		var kapcha = new KapCha(<%= Study::KapchaWPM %>, <%= Study::UseKapchaNavProtect %>);
+	</script>
+<% end %>
